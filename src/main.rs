@@ -79,7 +79,6 @@ fn compound_type() {
     let g = tuple.2;
     let h = tuple.3;
 
-
     println!("a는 {a}입니다.");
     println!("b는 {b}입니다.");
     println!("c는 {c}입니다.");
@@ -93,7 +92,6 @@ fn array_type() {
     // let x: [i32, 5] = [1, 2, 3, 4, 5];
 
     let num = x[0];
-
 
     // 0번째 인덱스부터 99번째 인덱스까지 3이 총 100개 만들어짐
     let threes = [3; 100];
