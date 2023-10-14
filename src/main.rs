@@ -5,6 +5,10 @@ fn main() {
     immutable_variable();
     mutable_variable();
     shadowing();
+    print_number(99, 1);
+
+    let radius = circle_radius(2.0);
+    println!("반지름이 2.0인 원의 면적은 {radius}입니다.");
 }
 
 
@@ -16,9 +20,11 @@ fn rock_scissor_paper() {
  }
  
 // 상수는 mut 못붙힘, 네이밍은 대문자로 작성
+// const PIE: f32 = 3.141592;
+const PIE: f64 = 3.141592;
+
 fn immutable_variable() {
     // float은 기본 64 bit이고 f32를 명시하면 32 bit
-    const PIE: f32 = 3.141592;
     println!("PIE 상수 값은 {PIE}입니다.")
 }
 
@@ -79,6 +85,7 @@ fn compound_type() {
     let g = tuple.2;
     let h = tuple.3;
 
+
     println!("a는 {a}입니다.");
     println!("b는 {b}입니다.");
     println!("c는 {c}입니다.");
@@ -93,6 +100,104 @@ fn array_type() {
 
     let num = x[0];
 
+
     // 0번째 인덱스부터 99번째 인덱스까지 3이 총 100개 만들어짐
     let threes = [3; 100];
+
+    let hellos = ["hello", 10];
+    println!("{:?}", hellos);
+}
+
+// Rust는 snake case로 함수 네이밍
+fn a_function() {
+    println!("다른 함수입니다.")
+}
+
+fn print_number(a: i32, b: i32) {
+    let sum = a + b;
+    println!("a + b = {sum}");
+}
+
+// return 을 명시하지 않아도 스코프에 마지막 줄에 있는 겂아 리턴된다.
+fn statement() {
+    let x = 3;
+
+// 식에서 리턴값은 세미콜론이 들어가면 안댐
+    let y = {
+        let x = 3;
+        5 + x
+    };
+
+    println!(y); // 5
+}
+
+// 식에서 리턴값은 세미콜론이 들어가면 안댐
+fn circle_radius(radius: f64) -> f64 {
+    let r2 = radius * radius;
+    PIE * r2
+}
+
+fn fn_if() {
+    let x = 4;
+
+    if x % 2 == 0 {
+      println!("짝수");  
+    } else {
+      println!("홀수");  
+    }
+
+    let condition = true;
+    let y = if condition {3} else {5};
+    
+    println!(y);
+}
+
+fn fn_loop() {
+    // 무한 반복됨
+    loop {
+        println!("반복");
+    }
+
+    let mut counter = 0;
+
+    let result = loop {
+        println!("반복");
+        counter += 1;
+        if counter == 3 {
+            break counter; // break 뒤에 반환 값을 넘길 수 있음
+        }
+    };
+    
+    println!(result);
+    
+    while (counter < 5) {
+        println!("반복");
+        counter += 1;
+    }
+
+    let arr = [1,2,3,4,5];
+    let mut idx = 0;
+
+    while idx < arr.len() {
+        println!("array[idx] = {}", arr[idx]);
+        idx += 1;
+    }
+    println!("완료");
+    
+    for value in arr {
+        println!("value = {}", value);
+    }
+    println!("완료");
+
+    for i in (0..5) {
+        println!("value = {}", value);
+    }
+    println!("완료");
+
+    // 거꾸로
+    for i in (0..5).rev() {
+        println!("value = {}", value);
+    }
+    println!("완료");
+
 }
