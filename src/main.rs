@@ -1,18 +1,20 @@
 use std::io;
 
 fn main() {
-    // rock_scissor_paper();
-    // immutable_variable();
-    // mutable_variable();
+    rock_scissor_paper();
+    immutable_variable();
+    mutable_variable();
     shadowing();
 }
+
 
 fn rock_scissor_paper() {
     println!("[가위, 바위, 보] 중 하나를 입력해주세요!");
     let mut decision = String::new();
     io::stdin().read_line(&mut decision).expect("입력실패");
-    println!("당신의 선택: {decision}");}
-
+    println!("당신의 선택: {decision}");
+ }
+ 
 // 상수는 mut 못붙힘, 네이밍은 대문자로 작성
 fn immutable_variable() {
     const PIE: f32 = 3.141592;
