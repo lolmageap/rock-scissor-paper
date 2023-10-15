@@ -85,7 +85,6 @@ fn compound_type() {
     let g = tuple.2;
     let h = tuple.3;
 
-
     println!("a는 {a}입니다.");
     println!("b는 {b}입니다.");
     println!("c는 {c}입니다.");
@@ -201,3 +200,56 @@ fn fn_loop() {
     println!("완료");
 
 }
+
+fn fn_print() {
+    let x = 3; // 스택에 데이터가 존재
+     let y = x;
+     println!(x);
+     println!(y);
+ }
+ 
+ fn own() {
+    let s1: String = String::from("헬로"); // Heap에 위치
+     let s2 = s1; // 
+     
+     println!(s2); // 정상 출력
+     println!(s1); // 컴파일 에러
+ }
+ 
+ // 만약 데이터를 복사하고 싶을 때
+ fn copy() {
+    let s1: String = String::from("헬로"); // Heap에 위치
+     let s2 = s1.clone(); // 
+     
+     println!(s2); // 정상 출력
+     println!(s1); // 정상 출력
+ }
+ 
+ fn fn_string_length() {
+    let s1: String = String::from("헬로");
+     let s2 = print_string(s1); // 이 함수에게 소유권이 넘어간다.
+    println!(s1); // 컴파일 에러
+     println!(s2); // 정상 출력
+ }
+ 
+ fn print_string(s: String) -> String {
+    println!(s.length);
+     s
+ }
+ 
+ fn fn_string_length() {
+    let s1: String = String::from("헬로");
+     let s2 = string_length1(s1); // 이렇게 되면 사이즈만 리턴 받게 되고 s1의 값은 사용할 수 없게 된다.
+     
+     let (len, s1) = string_length1(s1); // 튜플로 반환을 한다면 소유권을 다시 가져오고 값도 가져올 수 있다.
+ }
+ 
+ fn string_length1(s: String) -> usize {
+    println!(s.length);
+     s.len()
+ }
+ 
+ fn string_length2(s: String) -> (usize, String) {
+    println!(s.length);
+     (s.len(), s)
+ }
