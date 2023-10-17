@@ -239,17 +239,46 @@ fn fn_print() {
  
  fn fn_string_length() {
     let s1: String = String::from("헬로");
-     let s2 = string_length1(s1); // 이렇게 되면 사이즈만 리턴 받게 되고 s1의 값은 사용할 수 없게 된다.
+    let s2 = string_length1(s1); // 이렇게 되면 사이즈만 리턴 받게 되고 s1의 값은 사용할 수 없게 된다.
      
-     let (len, s1) = string_length1(s1); // 튜플로 반환을 한다면 소유권을 다시 가져오고 값도 가져올 수 있다.
+    let (len, s1) = string_length1(s1); // 튜플로 반환을 한다면 소유권을 다시 가져오고 값도 가져올 수 있다.
  }
  
  fn string_length1(s: String) -> usize {
     println!(s.length);
-     s.len()
+    s.len()
  }
  
  fn string_length2(s: String) -> (usize, String) {
     println!(s.length);
      (s.len(), s)
+ }
+
+// 소유권을 임대 하고 길이만 리턴해도 s가 메모리에서 해제되지 않고 사용 가능
+ fn lease() {
+    let s = String::from("헬로");
+
+    // 임대는 기본적으로 immutable
+    let len = calc_length(&s);
+
+    // 임대를 mutable하게 넘기기
+    // 하나의 스코프에서 mutable하게 참조하는 건 1개 밖에 못함
+    // immutable은 여러개 가능, 하지만 mutable 한 값을 넘기기 전에만 참조가 가능
+    // 이 부분이 나중에 어려우면 다시 강의 듣기 -> 현재 이해했지만 코드를 작성하다보면 까먹을듯
+    let len2 = calc_length2(mut &s);
+
+    println!(s);
+    println!(len);
+ }
+
+// 소유권을 임대 해주는 코드 예시
+ fn calc_length(s: &String) -> usize {
+    let length = s.len();
+    length
+ }
+
+// 소유권을 임대 해주는 코드 예시2, mutable 한 값을 임대 받고 변경을 적용하는 코드
+ fn calc_length2(s: &mut String) -> usize {
+    let length = s.len();
+    length
  }
